@@ -10,13 +10,14 @@ public class CdfDTO {
 
     private Long persona;
 
-    private Long cdf;
+    private Long vivienda;
 
     private String fecha_registro;
 
     public CdfDTO(Cdf cdf) {
         this.id = cdf.getId();
-        this.persona = cdf.getPersona() != null ? cdf.getPersona().getId() : null; // Extrae el ID de Persona
+        this.persona = cdf.getPersona() != null ? cdf.getPersona().getId() : null;
+        this.vivienda = cdf.getVivienda() != null ? cdf.getVivienda().getId() : null;
         this.fecha_registro = cdf.getFecha_registro();
     }
 
@@ -27,9 +28,10 @@ public class CdfDTO {
     public Long getPersona() { return persona; }
     public void setPersona(Personas persona) { this.persona = persona.getId(); }
 
-    public Long getCdf() { return cdf; }
-    public void setCdf(Long cdf) { this.cdf = cdf; }
+    public Long getVivienda() { return vivienda; }
+    public void setVivienda(Long vivienda) { this.vivienda = vivienda; }
 
     public String getFecha_registro() { return fecha_registro; }
     public void setFecha_registro(String fecha_registro) { this.fecha_registro = fecha_registro; }
 }
+
