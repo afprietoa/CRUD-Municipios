@@ -12,12 +12,12 @@ public class Posesiones {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_persona")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_persona", nullable = true, foreignKey = @ForeignKey(name = "FK_posesiones_persona", value = ConstraintMode.CONSTRAINT, foreignKeyDefinition = "FOREIGN KEY (id_persona) REFERENCES personas(id) ON DELETE CASCADE"))
     private Personas persona;
 
-    @ManyToOne
-    @JoinColumn(name = "id_vivienda")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_vivienda", nullable = true, foreignKey = @ForeignKey(name = "FK_posesiones_vivienda", value = ConstraintMode.CONSTRAINT, foreignKeyDefinition = "FOREIGN KEY (id_vivienda) REFERENCES viviendas(id) ON DELETE CASCADE"))
     private Viviendas vivienda;
 
     @NotBlank(message = "The possession date cannot be blank")

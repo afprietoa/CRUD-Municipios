@@ -12,12 +12,12 @@ public class Gobernadores {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_persona")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_persona", nullable = true, foreignKey = @ForeignKey(name = "FK_gobernadores_persona", value = ConstraintMode.CONSTRAINT, foreignKeyDefinition = "FOREIGN KEY (id_persona) REFERENCES personas(id) ON DELETE CASCADE"))
     private Personas persona;
 
-    @ManyToOne
-    @JoinColumn(name = "id_municipio")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_municipio", nullable = true, foreignKey = @ForeignKey(name = "FK_gobernadores_municipio", value = ConstraintMode.CONSTRAINT, foreignKeyDefinition = "FOREIGN KEY (id_municipio) REFERENCES municipios(id) ON DELETE CASCADE"))
     private Municipios municipio;
 
     @NotBlank(message = "The registration date cannot be blank")

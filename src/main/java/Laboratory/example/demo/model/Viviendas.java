@@ -34,12 +34,12 @@ public class Viviendas {
     @Max(value = 6, message = "Levels must not exceed 6")
     private Integer niveles;
 
-    @ManyToOne
-    @JoinColumn(name = "id_municipio")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_municipio", nullable = true, foreignKey = @ForeignKey(name = "fk_viviendas_municipio", value = ConstraintMode.CONSTRAINT))
 
     private Municipios municipio;
 
-    @OneToMany(mappedBy = "viviendaActual")
+    @OneToMany(mappedBy = "viviendaActual", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Personas> habitantes;
 

@@ -25,8 +25,12 @@ public class CdfService {
     }
 
     // Buscar registros por persona
+    //public List<Cdf> getCdfByPersona(Long idPersona) {
+    //  return cdfRepository.findByPersona(idPersona);
+    //}
+    // Buscar registros por ID de persona
     public List<Cdf> getCdfByPersona(Long idPersona) {
-        return cdfRepository.findByPersona(idPersona);
+        return cdfRepository.findByPersona_Id(idPersona);
     }
 
     // Contar registros CDF
@@ -49,15 +53,19 @@ public class CdfService {
     // Actualizar un registro CDF
     public Cdf updateCdf(Long id, Cdf updatedCdf) {
         return cdfRepository.findById(id).map(existingCdf -> {
-            // Buscar la entidad Persona asociada
-            Personas persona = personasService.getPersonaById(updatedCdf.getPersona());
-            if (persona == null) {
-                throw new EntityNotFoundException("Persona no encontrada para el ID: " + updatedCdf.getPersona());
+            // Buscar la entidad Persona asociada al ID proporcionado en updatedCdf
+            if (updatedCdf.getPersona() != null && updatedCdf.getPersona().getId() != null) {
+                Personas persona = personasService.getPersonaById(updatedCdf.getPersona().getId());
+                if (persona == null) {
+                    throw new EntityNotFoundException("Persona no encontrada para el ID: " + updatedCdf.getPersona().getId());
+                }
+                // Setear la entidad Persona encontrada
+                existingCdf.setPersona(persona);
             }
-            // Setear la entidad Persona encontrada
-            existingCdf.setPersona(persona);
+
+            // Actualizar otros campos de Cdf
             existingCdf.setFecha_registro(updatedCdf.getFecha_registro());
             return cdfRepository.save(existingCdf);
-        }).orElse(null);
+        }).orElseThrow(() -> new EntityNotFoundException("CDF no encontrado para el ID: " + id));
     }
 }

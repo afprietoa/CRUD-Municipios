@@ -37,8 +37,8 @@ public class Personas {
     @Pattern(regexp = "^\\d{10}$", message = "Phone number must be exactly 10 digits")
     private String telefono;
 
-    @ManyToOne
-    @JoinColumn(name = "id_vivienda_actual", nullable = true)
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_vivienda_actual", nullable = true, foreignKey = @ForeignKey(name = "FK_persona_vivienda", value = ConstraintMode.CONSTRAINT))
     @JsonBackReference
     private Viviendas viviendaActual;
 

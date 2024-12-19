@@ -11,7 +11,10 @@ import java.util.List;
 public interface CdfRepository extends JpaRepository<Cdf, Long> {
 
     // Buscar registros de CDF para una persona específica
-    List<Cdf> findByPersona(Long persona);
+    //List<Cdf> findByPersona(Long persona);
+
+    // Buscar registros de CDF para una persona específica por su ID
+    List<Cdf> findByPersona_Id(Long personaId);
 
     // Contar todos los registros existentes en CDF
     long count();

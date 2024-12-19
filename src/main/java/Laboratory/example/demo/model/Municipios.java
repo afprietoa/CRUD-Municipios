@@ -20,7 +20,7 @@ public class Municipios {
     @Size(max = 50, message = "Name must not exceed 50 characters")
     private String nombre;
 
-    @OneToMany(mappedBy = "municipio")
+    @OneToMany(mappedBy = "municipio", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Viviendas> viviendas;
 

@@ -16,7 +16,7 @@ public class CdfDTO {
 
     public CdfDTO(Cdf cdf) {
         this.id = cdf.getId();
-        this.persona = cdf.getPersona();
+        this.persona = cdf.getPersona() != null ? cdf.getPersona().getId() : null; // Extrae el ID de Persona
         this.fecha_registro = cdf.getFecha_registro();
     }
 

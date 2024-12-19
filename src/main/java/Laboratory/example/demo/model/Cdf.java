@@ -11,11 +11,11 @@ public class Cdf {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "The person ID cannot be null")
-    @Min(value = 1, message = "ID must be greater than or equal to 1")
-    @Max(value = 9999999999L, message = "ID must be less than or equal to 9999999999")
-    @JoinColumn(name = "id_persona")
-    private Long persona;
+
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_persona", foreignKey = @ForeignKey(name = "FK_cdf_persona", value = ConstraintMode.CONSTRAINT, foreignKeyDefinition = "FOREIGN KEY (id_persona) REFERENCES personas(id) ON DELETE CASCADE"))
+    private Personas persona;
 
     @ManyToOne
     @JoinColumn(name = "id_cdf")
@@ -29,8 +29,8 @@ public class Cdf {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public Long getPersona() { return persona; }
-    public void setPersona(Personas persona) { this.persona = persona.getId(); }
+    public Personas getPersona() { return persona; }
+    public void setPersona(Personas persona) { this.persona = persona; }
 
     public Cdf getCdf() { return cdf; }
     public void setCdf(Cdf cdf) { this.cdf = cdf; }
