@@ -78,4 +78,7 @@ public class CdfService {
             return cdfRepository.save(existingCdf);
         }).orElseThrow(() -> new EntityNotFoundException("CDF no encontrado para el ID: " + id));
     }
+    public Cdf getCdfById(Long id) {
+        return cdfRepository.findById(id).orElse(null);
+    }
 }

@@ -115,4 +115,18 @@ public class CdfController {
         return ResponseEntity.notFound().build(); // Retorna 404 si no se encuentra el registro
     }
 
+    @Operation(summary = "Obtener CDF por ID",
+            description = "Recupera los detalles de un Centro de Formación (CDF) específico por su ID.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "CDF encontrado con éxito.",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = CdfDTO.class))),
+                    @ApiResponse(responseCode = "404", description = "CDF no encontrado.",
+                            content = @Content(schema = @Schema(ref = "#/components/schemas/Error")))
+            })
+    @GetMapping("/{id}")
+    public ResponseEntity<CdfDTO> getCdfById(@PathVariable Long id) {
+        Cdf cdf = cdfService.getCdfById(id);
+        return cdf != null ? ResponseEntity.ok(new CdfDTO(cdf)) : ResponseEntity.notFound().build();
+    }
+
 }
